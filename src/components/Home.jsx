@@ -1,81 +1,123 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+
 export default function Home() {
-    const [msg,showmsg]=useState(false);
-    const start=()=>{
-        showmsg(true);
+  const [showMessage, setShowMessage] = useState(false);
+  const [activeFeature, setActiveFeature] = useState(null);
+
+  const handleGetStarted = () => {
+    setShowMessage(true);
+  };
+
+  const features = [
+    {
+      id: 1,
+      icon: '💪',
+      title: 'Workout Plans',
+      description: 'Customized workout routines for all fitness levels',
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+    },
+    {
+      id: 2,
+      icon: '🥗',
+      title: 'Nutrition Guide',
+      description: 'Expert nutrition advice and meal planning',
+      image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+    },
+    {
+      id: 3,
+      icon: '📊',
+      title: 'Progress Tracking',
+      description: 'Monitor your fitness journey with detailed analytics',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
     }
-    const proceed=()=>{
-      showmsg(false);
-  
-  
-    }
+  ];
+
+  const stats = [
+    { number: '10K+', label: 'Active Users' },
+    { number: '500+', label: 'Workout Plans' },
+    { number: '95%', label: 'Success Rate' }
+  ];
+
   return (
-    <div>
-        <div className="container">
-          
-            <h1 id="maintext">Fit ME</h1>
-            <h3 id="text2">Your Ultimate Fitness Guide</h3>
-   
-            <div id="triangle">
-  <svg id="Layer_1" data-name="Layer 1" version="1.1" viewBox="0 0 2000 2000">
-    <polygon
-      className="cls-1"
-      points="928 781 1021 951 784.5 1371.97 1618 1371.97 1530.32 1544 509 1539 928 781"
-    ></polygon>
-    <polygon
-      className="cls-3"
-      points="1618 1371.97 784.5 1371.97 874.93 1211 1346 1211 923.1 456 1110.06 456 1618 1371.97"
-    ></polygon>
-    <g id="Layer_2" data-name="Layer 2">
-      <polygon
-        className="cls-2"
-        points="418 1372.74 509 1539 928 781 1162.32 1211 1346 1211 923.1 456 418 1372.74"
-      ></polygon>
-    </g>
-  </svg>
-</div>
-<button onClick={start}>
-    <span>GET STARTED</span>
-    <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="37" cy="37" r="35.5" stroke="black" stroke-width="3"></circle>
-        <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="black"></path>
-    </svg>
-</button>
+    <div className="home-container">
+      <section className="hero-section">
+        <div className="hero-content">
+          <div className="hero-text">
+            <h1 className="hero-title">
+              Transform Your Body, <span className="gradient-text">Transform Your Life</span>
+            </h1>
+            <p className="hero-subtitle">
+              Start your fitness journey today with personalized workout plans, nutrition guidance, and expert support.
+            </p>
+            <div className="hero-actions">
+              <button onClick={handleGetStarted} className="button button-primary">
+                Get Started
+              </button>
+              <NavLink to="/plans" className="button button-secondary">
+                View Plans
+              </NavLink>
+            </div>
+          </div>
+        </div>
 
-<NavLink to="/guide">
-<button className="cta">
-    <span oncliclassName="span">LEARN MORE</span>
-    <span className="second">
-      <svg width="50px" height="20px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <path className="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
-          <path className="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
-          <path className="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
-        </g>
-      </svg>
-    </span> 
-</button>
-</NavLink>
+        <div className="hero-image">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Fitness" />
+          <div className="floating-stats">
+            {stats.map((stat, index) => (
+              <div key={index} className="stat-card">
+                <span className="stat-number">{stat.number}</span>
+                <span className="stat-label">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-   <img  id="image1" src="public\gym2.jpg"></img>
-   {
-    msg&&
-    <div className='upper'>
-<div className="cookieCard">
-  <p className="cookieHeading">REMEMBER!</p>
-  <p className="cookieDescription">Your body is an amanah, so return it to the God in the best form.</p>
-    <NavLink to="/plans">
-    <button onClick={proceed} className="acceptButton">OK
-    </button>
-    </NavLink>
-  
-</div>
-</div>
+      <section className="features-section">
+        <div className="section-header">
+          <h2>Why Choose Us</h2>
+          <p>Comprehensive fitness solutions for your journey</p>
+        </div>
+        <div className="features-grid">
+          {features.map(feature => (
+            <div
+              key={feature.id}
+              className={`feature-card ${activeFeature === feature.id ? 'active' : ''}`}
+              onMouseEnter={() => setActiveFeature(feature.id)}
+              onMouseLeave={() => setActiveFeature(null)}
+            >
+              <div className="feature-content">
+                <span className="feature-icon">{feature.icon}</span>
+                <h3 className="feature-title">{feature.title}</h3>
+                <p className="feature-description">{feature.description}</p>
+              </div>
+              <div className="feature-image">
+                <img src={feature.image} alt={feature.title} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-}
+      {showMessage && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Welcome to Your Fitness Journey!</h2>
+            <p>
+              We're excited to help you achieve your fitness goals. Let's start by creating your personalized plan.
+            </p>
+            <div className="modal-actions">
+              <NavLink to="/plans" className="button button-primary">
+                Explore Plans
+              </NavLink>
+              <button onClick={() => setShowMessage(false)} className="button button-secondary">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-
-    </div>
-  )
+  );
 }

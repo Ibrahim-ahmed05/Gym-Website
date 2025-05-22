@@ -1,95 +1,152 @@
 import React, { useState } from 'react'
 
 export default function Bmi() {
-    const [height,setheight]=useState('');
-    const [weight,setweight]=useState('');
-    const [result,setresult]=useState('');
-    const[show,setshow]=useState(false);
-    const [decision, setdecision]=useState("");
-    const[showanimation,setanimation]=useState(false);
-    const handleweight = (event) => {
-        setweight(event.target.value);
-    }
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [result, setResult] = useState('');
+  const [show, setShow] = useState(false);
+  const [decision, setDecision] = useState('');
+  const [showAnimation, setAnimation] = useState(false);
+  const [bmiCategory, setBmiCategory] = useState('');
 
-    const handleheight = (event) => {
-        setheight(event.target.value);
-    }
-    const calculate=()=>{
-        if(height && weight)                                                        
-        {
-        const bmi= weight/(height*height);
-        setTimeout(() => {
-            setanimation(false);
-        }, 3000);
-        setanimation(true);
-        setresult(bmi.toFixed(2));
-        setTimeout(() => {
-            setshow(true);
-        }, 3000);
-    
-        
-        if(bmi<18.5)
-        {
-            setdecision("UNDERWEIGHT");
-        }
-        else if(bmi>18.5 && bmi<24.9)
-        {
-            setdecision("HEALTHY");
-        }
-        else
-        {
-            setdecision("OBESE");
-        }
-        }
+  const handleWeight = (event) => {
+    setWeight(event.target.value);
+  }
 
+  const handleHeight = (event) => {
+    setHeight(event.target.value);
+  }
+
+  const calculate = () => {
+    if (height && weight) {
+      const bmi = weight / (height * height);
+      setAnimation(true);
+
+      setTimeout(() => {
+        setAnimation(false);
+        setResult(bmi.toFixed(2));
+        setShow(true);
+
+        if (bmi < 18.5) {
+          setDecision('Underweight');
+          setBmiCategory('underweight');
+        } else if (bmi >= 18.5 && bmi < 25) {
+          setDecision('Healthy');
+          setBmiCategory('healthy');
+        } else if (bmi >= 25 && bmi < 30) {
+          setDecision('Overweight');
+          setBmiCategory('overweight');
+        } else {
+          setDecision('Obese');
+          setBmiCategory('obese');
+        }
+      }, 2000);
     }
-    const clear=()=>{
-        setshow(false);
-        setheight('');
-        setweight('');
-    }
+  }
+
+  const clear = () => {
+    setShow(false);
+    setHeight('');
+    setWeight('');
+    setResult('');
+    setDecision('');
+    setBmiCategory('');
+  }
+
   return (
-    <>
-    <div>
-        <h1>BMI CALCULATOR</h1>
-        <br></br>
-        <br></br>
-        <h2 id="bmi2">WHAT IS BMI?</h2>
-        <h6 id="bmi3">Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women.
-            <br></br>
-            Use the tool below to calculate you BMI.
-        </h6>
-      <form>
-        <input value={weight} type="number" onChange={handleweight} placeholder='Enter your weight in kg...' className='input mx-5 my-5'></input>
-        <input value={height} type="number" onChange={handleheight} placeholder='Enter your height in m...' className='input mx-5 my-5' ></input>
-        <button type="button" className="calculatebutton" onClick={calculate}>CALCULATE</button>
-        <button class="clearbutton"> CLEAR
-        </button>
+    <div className="bmi-container">
+      <div className="bmi-content">
+        <h1 className="bmi-title">BMI Calculator</h1>
 
-      </form>
-      <div>
-        {
-            showanimation &&
-            <div className="container2">
-            <div className="loading">
-            <svg width="64px" height="48px">
-                <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="back"></polyline>
-              <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="front"></polyline>
-            </svg>
+        <div className="bmi-info">
+          <h2>What is BMI?</h2>
+          <p>
+            Body Mass Index (BMI) is a measure of body fat based on height and weight that applies to adult men and women.
+            Use the calculator below to determine your BMI and understand your weight category.
+          </p>
+        </div>
+
+        <div className="bmi-calculator">
+          <div className="input-group">
+            <label htmlFor="weight">Weight (kg)</label>
+            <input
+              id="weight"
+              type="number"
+              value={weight}
+              onChange={handleWeight}
+              placeholder="Enter your weight"
+              className="bmi-input"
+            />
           </div>
-          </div> 
-        }
-      </div>
-      <br></br>
-      <div>
-        {
-            show &&  <h5> Your BMI is {result} and according to GOOGLE you are {decision}</h5>    
-           
-       
-       
-        }
+
+          <div className="input-group">
+            <label htmlFor="height">Height (m)</label>
+            <input
+              id="height"
+              type="number"
+              value={height}
+              onChange={handleHeight}
+              placeholder="Enter your height"
+              className="bmi-input"
+            />
+          </div>
+
+          <div className="button-group">
+            <button
+              type="button"
+              onClick={calculate}
+              className="calculate-button"
+              disabled={!height || !weight}
+            >
+              Calculate BMI
+            </button>
+            <button
+              type="button"
+              onClick={clear}
+              className="clear-button"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+
+        {showAnimation && (
+          <div className="loading-container">
+            <div className="loading-spinner">
+              <svg viewBox="0 0 50 50">
+                <circle cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+              </svg>
+            </div>
+          </div>
+        )}
+
+        {show && (
+          <div className={`bmi-result ${bmiCategory}`}>
+            <div className="result-header">
+              <h3>Your BMI Result</h3>
+              <span className="bmi-value">{result}</span>
+            </div>
+            <div className="result-category">
+              <span className="category-label">Category:</span>
+              <span className="category-value">{decision}</span>
+            </div>
+            <div className="result-message">
+              {bmiCategory === 'underweight' && (
+                <p>You are underweight. Consider consulting with a healthcare provider about healthy ways to gain weight.</p>
+              )}
+              {bmiCategory === 'healthy' && (
+                <p>Congratulations! You are in the healthy weight range. Maintain your current lifestyle and eating habits.</p>
+              )}
+              {bmiCategory === 'overweight' && (
+                <p>You are overweight. Consider making lifestyle changes to achieve a healthier weight.</p>
+              )}
+              {bmiCategory === 'obese' && (
+                <p>You are in the obese category. It's recommended to consult with a healthcare provider about weight management.</p>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
-    </>
   )
 }
