@@ -105,7 +105,7 @@ export default function Home() {
           <div className="modal-content">
             <h2>Welcome to Your Fitness Journey!</h2>
             <p>
-              We're excited to help you achieve your fitness goals. Let's start by creating your personalized plan.
+              Your body is an amanah, so return it to GOD in the best form.
             </p>
             <div className="modal-actions">
               <NavLink to="/plans" className="button button-primary">
